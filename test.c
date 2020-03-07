@@ -28,25 +28,77 @@
 //							_DATE_, _TIME_ )
 // 在define标识符的时候, 不要在后面加上分号(;)
 // 建议不要加上, 容易导致问题 出现语法错误
-int main2(){
+//#define M 10
+//#define M 10;
+//#define F 0
+//int main(){
+//	int a = 0;
+//	if (F){
+//		a = M;// 当宏定义后面有; 时, 这里替换后为 a = 10;; 
+//		// 两个分号之间存在空语句 而if else中间只能有一条语句 而这里有两条
+//	}
+//	else{
+//		a = M * 10;// 这里替换为a = 10;*10;  语法错误
+//	}
+//	printf("%d\n", a);// 10
 
-	system("pause");
-	return 0;
-}
-// #define 定义宏
+	//int a = 10;
+	//char* msg = "hello world";
+	//printf("%d, %s\n", \
+	//	a, \
+	//	msg);// 10, hello world
+//	system("pause");
+//	return 0;
+//}
+
+
+// #define 定义宏 
 // #define name(parament-list) stuff 其中的parament-list是一个由逗号隔开的符号表,他们可能出现在stuff中
 // 注意: 参数列表的左括号必须与name紧邻. 如果两者之间有任何空白存在,参数列表就会被解释为stuff的一部分
 // 如:#define SQUARE( x ) x * x 这个宏接受一个参数 x, 如果在上述申明之后,把
 // SQUARE( 5 ); 置入程序中, 预处理器就会用下面这个表达式代替上面的表达式: 5 * 5
  
-#define SQUARE( x ) x * x
+//#define SQUARE( x ) x * x
+//#define SQUARE( x ) (x) * (x)  // 这样就对了
+//#define DOUBLE(x) (x) + (x)
+//#define DOUBLE(x) ((x) + (x))// 这就对了
+//#define N 10
+//#define DOUBLE(x) ((x) + (x))
+//#define M N
+//#define N M // 不能出现递归 
+//#define MIN "hello"
+
+//int  main(){
+//	char* msg = "MINabcMIN";// MIN不会被字符串常量替换掉 
+//	char* str = "hello";
+	//int a = M;
+	//int b = N;// 预处理期没有处理
+	//printf("%d, %d\n", a, b);
+// printf("%d\n", N * DOUBLE(DOUBLE(N)));// 10*(( (((10) + (10))) + (((10) + (10))) )) 
+//	printf("%d\n", N * DOUBLE(N));// 10 * (10 + 10) = 200
+//	//printf("%d\n", DOUBLE(20));// 40
+//	//printf("%d\n", 10 * DOUBLE(20));// 10 * (20) + (20) = 220
+
+//	//int a = 5;
 // 这个宏有问题, 替换文本时, 参数被替换成a + 1, 所以这个语句实际上变成了: printf("%d\n", a+1*a+1)
-int  main(){
-	int a = 5;
-	printf("%d\n", SQUARE(a + 1));// 将打印11
+//	//printf("%d\n", SQUARE(a + 1));// 将打印11 后者打印出来是36
+//
+//	system("pause");
+//	return 0;
+//}
+
+// # 和 ##
+#define PRINT(FORMAT, VALUE) \
+	printf("the value is: "FORMAT"\n", VALUE);
+
+int main(){
+	PRINT("%d", 10);// 被替换成 printf("the value is: ""%d""\n", 10);;
+	//// 相邻字符串连接
+	//printf("hello world\n""hello bit\n");
+	//const char* msg = "abcd""efg";
+	//printf("%s""xyz\n", msg);// 打印 abcdefgxyz 将多个字符串常量放在一起便成为了一个字符串 
 
 	system("pause");
 	return 0;
 }
-
 
