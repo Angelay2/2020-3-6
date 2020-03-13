@@ -19,6 +19,8 @@
 //	system("pause");
 //	return 0;
 //}
+
+// 宏定义(普通, 类函数)
 // #define 定义表示符
 // #define name stuff(使用后者直接替换前者) 宏本身的特征:文本替换
 // 如果定义的stuff过长, 可以分成几行写, 除了最后一行外, 每行的后面都加一个反斜杠(续行符)
@@ -88,15 +90,43 @@
 //}
 
 // # 和 ##
-#define PRINT(FORMAT, VALUE) \
-	printf("the value is: "FORMAT"\n", VALUE);
+// 只有当字符串作为宏参数的时候 才可以吧字符串放在字符串中,
+//#define PRINT(FORMAT, VALUE) \
+//	printf("the value is: "FORMAT"\n", VALUE);
+//
+//int main(){
+//	PRINT("%d", 10);// 结果为the value is: 10  被替换成 printf("the value is: ""%d""\n", 10);;
+//	//// 相邻字符串连接
+//	//printf("hello world\n""hello bit\n");
+//	//const char* msg = "abcd""efg";
+//	//printf("%s""xyz\n", msg);// 打印 abcdefgxyz 将多个字符串常量放在一起便成为了一个字符串 
+//
+//	system("pause");
+//	return 0;
+//}
 
+// ## 可以吧位于它两边的符号合成一个符号, 它允许宏定义从分离的文本段创建标识符
+// 带副作用的宏参数
+// x + 1; x++ 
+//#define SUM(num, value) a##num+=value
+
+#define MAX(a,b) ((a) > (b)) ? (a) : (b)) // MAX是比较a, b大小的问题 正常情况下这样写是对的
 int main(){
-	PRINT("%d", 10);// 被替换成 printf("the value is: ""%d""\n", 10);;
-	//// 相邻字符串连接
-	//printf("hello world\n""hello bit\n");
-	//const char* msg = "abcd""efg";
-	//printf("%s""xyz\n", msg);// 打印 abcdefgxyz 将多个字符串常量放在一起便成为了一个字符串 
+	x = 5;
+	y = 8;
+	z = 0;
+	z = MAX(x++, y++);
+	// z = ((x++) > (y++) ? (x++) : (y++));
+	printf("x = %d y = %d z = %d\n", x, y, z);// 
+
+
+	//int a = 10;
+	//// a + 1;// 没有副作用
+	//a++;
+	//printf("%d\n", a);
+	////int a1 = 10;
+	////SUM(1, 20);// 变成 a1 += 20
+	////printf("%d\n", a1);// 30
 
 	system("pause");
 	return 0;
